@@ -2,9 +2,16 @@
 # Sasha Dolgy <sasha@dolgy.com>
 # http://twitter.com/sdolgy
 
-numNodes=6
+numNodes=4
+if [ -z $1 ]; then
+    echo "[INFO]: using default number of $numNodes nodes"
+else 
+    numNodes=$1
+    echo "[INFO]: using $numNodes number of nodes"
+fi
 
-for nodes in {0..5};
+for nodes in `seq 1 $numNodes`;
 do
-    echo "$nodes*(2^127/($numNodes-1))" | bc;
+    nodeKey=`echo "$nodes*(2^127/($numNodes))" | bc`;
+    echo "[INFO]:  node-$nodes - $nodeKey"
 done
